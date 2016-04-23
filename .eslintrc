@@ -1,5 +1,5 @@
 {
-  "extends": "eslint-config-cycle",
+  
   "parser": "babel-eslint",
   "env": {
     "node": true,
