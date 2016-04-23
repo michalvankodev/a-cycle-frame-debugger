@@ -13,6 +13,7 @@ function guid() {
 export const GUID = _.memoize(guid);
 /*creates a nested array of the observable*/
 function tree (stream$) {
+
   if (!stream$.source) {
     return GUID(stream$);
   }

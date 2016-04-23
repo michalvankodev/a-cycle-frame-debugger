@@ -13,6 +13,7 @@
     "@cycle/core": "^6.0.3",
     "@cycle/dom": "^9.4.0",
     "aframe": "^0.2.0",
+    "aframe-text-component": "^0.3.0",
     "budo": "^8.2.1",
     "lodash": "^4.11.1",
     "rx": "^4.1.0",

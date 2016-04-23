@@ -18,7 +18,6 @@ function lengthV3 ([x0,y0,z0], [x1,y1,z1]) {
 }
 
 function connections ([key, ids = null], table = {}) {
-  console.log(key, ids);
   const arr = (table[key] = table[key] || []);
   ids.map((s) => _.isString(s) ? arr.push(s) : arr.push(s[0]) && connections(s, table));
   return table;
