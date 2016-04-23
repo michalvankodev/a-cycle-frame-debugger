@@ -1,4 +1,5 @@
-import {h} from '@cycle/dom'
+import {h, div, } from '@cycle/dom';
+import Calendar from './components/InfiniteCalendar';
 
 export default function getRandomColor() {
   let letters = '0123456789ABCDEF'.split('')
@@ -12,36 +13,42 @@ export default function getRandomColor() {
 export default function App({DOM}) {
   const sphereClick$ = DOM.select('.special').events('click')
   const color$ = sphereClick$.startWith('').map(() => getRandomColor())
-
-  const view$ = color$.map(c => {
-    return h('a-scene', [
-      h('a-light', {
-        attributes: {
-          color: 'white',
-          position: '1 1 -1',
-          type: 'ambient'
-        }
-      }),
-      h('a-camera', [
-        h('a-cursor', {
-          attributes: {
-            cursor: "fuse: false ; maxDistance: 30; timeout: 0",
-            position: "0 0 -5",
-            geometry: "primitive: ring",
-            material: "color: black; shader: flat"
-          }
-        })
+  const calendar = Calendar()
+  const view$ = color$.combineLatest(calendar.DOM, (c, calendarTree)=> {
+    return div('.container', [
+      div('.vr',  [
+        h('a-scene', [
+          h('a-light', {
+            attributes: {
+              color: 'white',
+              position: '1 1 -1',
+              type: 'ambient'
+            }
+          }),
+          h('a-camera', [
+            h('a-cursor', {
+              attributes: {
+                cursor: "fuse: false ; maxDistance: 30; timeout: 0",
+                position: "0 0 -5",
+                geometry: "primitive: ring",
+                material: "color: black; shader: flat"
+              }
+            })
+          ]),
+          h('a-sphere', {
+            key: 'ss',
+            className: 'special',
+            attributes: {
+              position: '0 1.25 -1',
+              radius: '1.25',
+              color: c
+            }
+          })
+        ])
       ]),
-      h('a-sphere', {
-        key: 'ss',
-        className: 'special',
-        attributes: {
-          position: '0 1.25 -1',
-          radius: '1.25',
-          color: c
-        }
-      })
-
+      div('.calendar', [
+        calendarTree
+      ])
     ])
   })
 
