@@ -1,0 +1,11 @@
+node_modules
+generated
+.idea
+.DS_STORE
+/dist
+*.css
+*.log
+# elm-package generated files
+elm-stuff/
+# elm-repl generated files
+repl-temp-*
