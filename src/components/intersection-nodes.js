@@ -29,17 +29,17 @@ function tree (stream$) {
 
 function createSphere (id, i, a) {
 
-  const vertices = _.uniq(new THREE.SphereGeometry( 10, a.length / 2, a.length / 2).vertices.map(({x,y,z}) => ([x,y,z].join(' '))));
-  const v3 = vertices[(i * 7) % (vertices.length - 1)];
+  const vertices = _.uniq(new THREE.SphereGeometry( 10, a.length / 2, a.length / 2).vertices.map(({x,y,z}) => ([x.toFixed(3),y.toFixed(3),z.toFixed(3)].join(' '))));
+  const v3 = vertices[(i) % (vertices.length - 1)];
+  console.log(v3);
   return h('a-sphere', {
-      key: 'ss',
+      key: id,
       className: 'special',
       attributes: {
         position: v3,//`${(Math.tan(i * i) * Math.PI).toFixed(3)} ${(Math.sin(i) * Math.PI).toFixed(3)} ${(Math.cos(i) * Math.PI).toFixed(3)}`,
         radius: '.5',
         id : id.split('-')[0],
-        color : '#' + id.slice(0,6),
-        key : id
+        color : '#' + id.slice(0,6)
       }
   });
 }

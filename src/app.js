@@ -5,6 +5,7 @@ import _ from 'lodash';
 import IntersectionNodes, {GUID} from './components/intersection-nodes';
 import IntersectionLines from './components/intersection-lines';
 import 'aframe-text-component'
+import StreamLog from './components/StreamLog'
 
 
 
@@ -41,25 +42,32 @@ export default function App({DOM, INSPECT}) {
 
   .map(([values, positions]) => {
     return h('a-entity', {}, values.map((value, index) => {
-      return h('a-entity', {
-        attributes: {
-          position: positions[index].join(' '),
-          text: `text: ${value.toString()}; size: 1;`,
-          material: 'color: #000000',
-          key : index
-        }
-      });
-    }));
+
+      const position = positions[index].join(' ')
+      return StreamLog(value, position, index)
+    }))
   });
+      //   attributes: {
+      //     position:
+      //     text: `text: ${value.toString()}; size: 1;`,
+      //     material: 'color: #000000'
 
 
 
   return {
     DOM: intersectionNodes.DOM.combineLatest(intersectionLines.DOM, valueLabels$)
     .map(items => h('a-scene', {}, [
-      h('a-light', {attributes : {color : 'white'}})
-
-    ].concat(_.flattenDeep(items)))),
+      h('a-light', {attributes : {color : 'white', type: 'ambient'}}),
+      h(
+        'a-camera',
+        {
+          attributes: {
+            position: '0 0 5',
+            id: 'camera'
+          }
+        }
+      )
+    ].concat(_.flatten(items)))),
 
     INSPECT : Observable.just(
       Observable.interval(1187).delay(1000)
