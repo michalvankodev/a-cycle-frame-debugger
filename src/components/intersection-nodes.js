@@ -1,5 +1,6 @@
 import {h} from '@cycle/dom';
 import _ from 'lodash';
+import THREE from 'three';
 /*this is for identifying a node*/
 function guid() {
   function s4() {
@@ -27,11 +28,14 @@ function tree (stream$) {
 
 
 function createSphere (id, i, a) {
+
+  const vertices = _.uniq(new THREE.SphereGeometry( 10, a.length / 2, a.length / 2).vertices.map(({x,y,z}) => ([x,y,z].join(' '))));
+  const v3 = vertices[(i * 7) % (vertices.length - 1)];
   return h('a-sphere', {
       key: 'ss',
       className: 'special',
       attributes: {
-        position: `${(Math.tan(i * i) * Math.PI).toFixed(3)} ${(Math.sin(i) * Math.PI).toFixed(3)} ${(Math.cos(i) * Math.PI).toFixed(3)}`,
+        position: v3,//`${(Math.tan(i * i) * Math.PI).toFixed(3)} ${(Math.sin(i) * Math.PI).toFixed(3)} ${(Math.cos(i) * Math.PI).toFixed(3)}`,
         radius: '.1',
         id : id.split('-')[0],
         color : '#' + id.slice(0,6)

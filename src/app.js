@@ -7,8 +7,9 @@ import IntersectionLines from './components/intersection-lines';
 import 'aframe-text-component'
 
 
+
 function tree (stream$) {
-  
+
   if (!stream$.source && !stream$._params) {
     return [stream$];
   }
@@ -58,7 +59,13 @@ export default function App({DOM, INSPECT}) {
       h('a-light', {attributes : {color : 'white'}})
     ].concat(_.flatten(items)))),
 
-    INSPECT : Observable.just(Observable.interval(1187).delay(1000).merge(Observable.interval(3167)).merge(Observable.interval(1000)).combineLatest(Observable.interval(30)))
+    INSPECT : Observable.just(
+      Observable.interval(1187).delay(1000)
+      .merge(Observable.interval(3167))
+      .merge(Observable.interval(1000))
+      .combineLatest(Observable.interval(30))
+      
+    )
   };
 };
 /*
