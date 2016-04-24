@@ -57,6 +57,7 @@ export default function App({DOM, INSPECT}) {
     DOM: intersectionNodes.DOM.combineLatest(intersectionLines.DOM, valueLabels$)
     .map(items => h('a-scene', {}, [
       h('a-light', {attributes : {color : 'white'}})
+      
     ].concat(_.flatten(items)))),
 
     INSPECT : Observable.just(
@@ -64,7 +65,7 @@ export default function App({DOM, INSPECT}) {
       .merge(Observable.interval(3167))
       .merge(Observable.interval(1000))
       .combineLatest(Observable.interval(30))
-      
+
     )
   };
 };
