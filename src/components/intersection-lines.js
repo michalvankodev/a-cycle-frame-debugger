@@ -24,6 +24,7 @@ function connections ([key, ids = null], table = {}) {
 }
 
 export default function ({tree$, positions$, flatTree$}) {
+  tree$.subscribe(e => console.log(e))
   const connections$ = tree$.map(tree => connections(tree, {}));
 
   const lines$ = positions$.zip(flatTree$).map(([values, keys]) => _.zipObject(keys, values)).combineLatest(connections$, (vectors, connections) => {

@@ -8,14 +8,15 @@ import 'aframe-text-component'
 
 
 function tree (stream$) {
-  if (!stream$.source) {
-    return stream$;
+  
+  if (!stream$.source && !stream$._params) {
+    return [stream$];
   }
-  else if (stream$.source._args || stream$.source._params) {
-    return [stream$, stream$.source._args || stream$.source._params];
+  else if (stream$._params || stream$.source._args) {
+    return [stream$, (stream$._params || stream$.source._args).map(tree)];
   }
   else {
-    return [stream$, stream$.source];
+    return [stream$, [stream$.source]];
   }
 }
 
@@ -39,11 +40,10 @@ export default function App({DOM, INSPECT}) {
 
   .map(([values, positions]) => {
     return h('a-entity', {}, values.map((value, index) => {
-      console.log(positions[index].join(' '), value);
       return h('a-entity', {
         attributes: {
           position: positions[index].join(' '),
-          text: `text: ${value}; size: 1;`,
+          text: `text: ${value.toString()}; size: 1;`,
           material: 'color: #000000'
         }
       });
@@ -58,7 +58,7 @@ export default function App({DOM, INSPECT}) {
       h('a-light', {attributes : {color : 'white'}})
     ].concat(_.flatten(items)))),
 
-    INSPECT : Observable.just(Observable.interval(1187).merge(Observable.interval(1321)))
+    INSPECT : Observable.just(Observable.interval(1187).delay(1000).merge(Observable.interval(3167)).merge(Observable.interval(1000)).combineLatest(Observable.interval(30)))
   };
 };
 /*

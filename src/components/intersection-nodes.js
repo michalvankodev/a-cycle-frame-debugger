@@ -14,14 +14,14 @@ export const GUID = _.memoize(guid);
 /*creates a nested array of the observable*/
 function tree (stream$) {
 
-  if (!stream$.source) {
+  if (!stream$.source && !stream$._params) {
     return GUID(stream$);
   }
-  else if (stream$.source._args || stream$.source._params) {
-    return [GUID(stream$), (stream$.source._args || stream$.source._params).map(tree)];
+  else if (stream$._params || stream$.source._args) {
+    return [GUID(stream$), (stream$._params || stream$.source._args).map(tree)];
   }
   else {
-    return [GUID(stream$), tree(stream$.source)];
+    return [GUID(stream$), [tree(stream$.source)]];
   }
 }
 
