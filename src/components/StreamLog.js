@@ -7,11 +7,13 @@ export default function StreamLog(value, position, key) {
     {
       attributes: {
         depth: 0.1,
-        height: 1,
-        width: 1,
-        color: '#cccccc',
+        height: 2,
+        width: 2,
+        color : 'rgba(0,255,0, 0.5)',
+        opacity : 0.5,
         position: position,
         'look-at': '#camera'
+
       },
       key : 'stream-log' + key
     },
@@ -19,9 +21,9 @@ export default function StreamLog(value, position, key) {
       h('a-entity', {
         key : 'stream-log-text' + key,
         attributes: {
-          position: '-2 0 0.2',
+          position: '0 0 1',
           text: `text: ${value.toString()}; size: 0.3;`,
-          material: 'color: #000000'
+          material: 'color: #ffffff'
         }
       })
     ]

@@ -44,7 +44,7 @@ export default function App({DOM, INSPECT}) {
     return h('a-entity', {}, values.map((value, index) => {
 
       const position = positions[index].join(' ')
-      return StreamLog(value, position, index)
+      return StreamLog(value, position, GUID(index))
     }))
   });
       //   attributes: {

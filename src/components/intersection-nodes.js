@@ -28,9 +28,8 @@ function tree (stream$) {
 
 
 function createSphere (id, i, a) {
-
   const vertices = _.uniq(new THREE.SphereGeometry( 10, a.length / 2, a.length / 2).vertices.map(({x,y,z}) => ([x.toFixed(3),y.toFixed(3),z.toFixed(3)].join(' '))));
-  const v3 = vertices[(i) % (vertices.length - 1)];
+  const v3 = vertices[((i) / a.length * vertices.length) | 0];
   console.log(v3);
   return h('a-sphere', {
       key: id,
