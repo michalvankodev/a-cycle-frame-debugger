@@ -45,7 +45,8 @@ export default function App({DOM, INSPECT}) {
         attributes: {
           position: positions[index].join(' '),
           text: `text: ${value.toString()}; size: 1;`,
-          material: 'color: #000000'
+          material: 'color: #000000',
+          key : index
         }
       });
     }));
@@ -57,8 +58,8 @@ export default function App({DOM, INSPECT}) {
     DOM: intersectionNodes.DOM.combineLatest(intersectionLines.DOM, valueLabels$)
     .map(items => h('a-scene', {}, [
       h('a-light', {attributes : {color : 'white'}})
-      
-    ].concat(_.flatten(items)))),
+
+    ].concat(_.flattenDeep(items)))),
 
     INSPECT : Observable.just(
       Observable.interval(1187).delay(1000)

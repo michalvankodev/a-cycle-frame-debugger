@@ -36,9 +36,10 @@ function createSphere (id, i, a) {
       className: 'special',
       attributes: {
         position: v3,//`${(Math.tan(i * i) * Math.PI).toFixed(3)} ${(Math.sin(i) * Math.PI).toFixed(3)} ${(Math.cos(i) * Math.PI).toFixed(3)}`,
-        radius: '.1',
+        radius: '.5',
         id : id.split('-')[0],
-        color : '#' + id.slice(0,6)
+        color : '#' + id.slice(0,6),
+        key : id
       }
   });
 }
@@ -75,6 +76,6 @@ export default function IntersectionNodes({INSPECT}) {
     tree$,
     flatTree$,
     positions$,
-    DOM : DOM.map(wrap)
+    DOM : DOM
   };
 };
